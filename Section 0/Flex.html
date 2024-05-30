@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox</title>
+    <style>
+        .flex-container{
+            display: flex;
+        }
+
+        .card{
+            background-color: blue;
+            border: 30px solid white;
+            height: 100px;
+            flex: 1;
+        }
+        .first{
+            flex: 0.5
+        }
+
+        .second{
+             flex: 3;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+
+    <div class="flex-container">
+        <div class="card first"></div>
+        <div class="card second"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+    </div>
+    
+</body>
+</html>
