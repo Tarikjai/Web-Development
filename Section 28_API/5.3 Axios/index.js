@@ -19,7 +19,7 @@ app.get("/", async (req, res) => {
     const result = response.data;
     console.log(result)
     res.render("index.ejs", { data: result });
-   // console.log(response.data)
+  
   } catch (error) {
     console.error("Failed to make request:", error.message);
     res.render("index.ejs", {
@@ -33,17 +33,26 @@ app.post("/", async (req, res) => {
   // Use axios to make an API request to the /filter endpoint. Making
   // sure you're passing both the type and participants queries.
   // Render the index.ejs file with a single *random* activity that comes back
-  // from the API request.
+  // from the API request...
   
   try {
-    const response = await axios.get("https://bored-api.appbrewery.com/filter");
+    console.log(req.body)
+    const participants = req.body.participants
+    const type = req.body.type
+    const response = await axios.get(`https://bored-api.appbrewery.com/filter?type=${type}&participants=${participants}`);
+
     const result = response.data;
-    res.render("index.ejs", { data: result });
-   // console.log(response.data)
+    
+
+    res.render("index.ejs", {
+       data: result[Math.floor(Math.random() * result.length)],
+    });
+    console.log(result)
+
   } catch (error) {
     console.error("Failed to make request:", error.message);
     res.render("index.ejs", {
-      error: error.message,
+      error: "No Activities match that criteria ",
     });
   }
    // Step 3: If you get a 404 error (resource not found) from the API request.
