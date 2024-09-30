@@ -12,7 +12,7 @@ const API_URL = "https://secrets-api.appbrewery.com";
 // https://secrets-api.appbrewery.com/
 
 //TODO 1: Add your own bearer token from the previous lesson.
-const yourBearerToken = "";
+const yourBearerToken = "65b1573a-d6a2-461c-8cfa-60c7f444b60c";
 const config = {
   headers: { Authorization: `Bearer ${yourBearerToken}` },
 };
@@ -35,6 +35,23 @@ app.post("/get-secret", async (req, res) => {
 
 app.post("/post-secret", async (req, res) => {
   // TODO 2: Use axios to POST the data from req.body to the secrets api servers.
+  const { secret, score } = req.body;
+  try {
+    const result = await axios.post('https://secrets-api.appbrewery.com/secrets' , 
+      {
+        secret  ,
+        score  
+       }
+       , config)
+    console.log(secret,score)  
+    res.render("index.ejs", { content: JSON.stringify(result.data) });
+
+  } catch (error) {
+    console.error(error);  // Ajout d'une gestion d'erreur
+    res.status(500).send('Error while posting secret');
+  }
+  
+  
 });
 
 app.post("/put-secret", async (req, res) => {
