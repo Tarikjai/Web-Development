@@ -3,11 +3,9 @@ import express from "express";
 const app = express();
 const port = 3000;
 
-
-
-const logger = (req, res, next) => {
-  console.log("Request method: " , req.method)
-  console.log("Request method: " , req.url)
+const logger = (req, res, next)=>{
+  console.log('Request method: ',req.method)
+  console.log('Request url: ',req.url)
   next()
 }
 

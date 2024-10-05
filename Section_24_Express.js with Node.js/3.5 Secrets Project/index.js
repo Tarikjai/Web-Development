@@ -1,29 +1,35 @@
+//To see how the final website should work, run "node solution.js".
+//Make sure you have installed all the dependencies with "npm i".
+//The password is ILoveProgramming
+
+
 require('dotenv').config()
-const { error } = require('console')
-const express = require('express')
-const app = express()
-const path = require('path')
-
+const express = require("express")
+const path =require('path')
 const PORT = process.env.PORT
+ 
+const app = express()
+ 
+app.use(express.static("public"))
+app.use(express.urlencoded({extended:false}))
+app.use(express.json())
 
-app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname,"/public","index.html"))
-}) 
-
-app.post('/check', (req ,res) =>{
-    var enteredPass = req.body.password
-    if (enteredPass === "ILoveProgramming"){
-        res.sendFile(path.join(__dirname,"/public","secret.html"))
-        console.log(req.body.password)
-    }else  {
-        console.log("wrong password")
-    }
-    
-
-} )
-
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`)
+app.get('/', (req,res)=>{
+    res.sendFile(path.join(__dirname,"public","index.html"))
 })
+
+app.post('/check', (req,res)=>{
+    const data = req.body.password
+    try {
+        if (data === "ILoveProgramming")
+            res.sendFile(path.join(__dirname,"public","secret.html"))
+    } catch (error) {
+        console.error(error)
+    }
+ //   
+})
+
+app.listen(PORT, ()=>{
+    console.log(`Server running on port: ${PORT}`)
+    })
+
