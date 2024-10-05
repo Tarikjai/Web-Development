@@ -1,49 +1,23 @@
-const express = require("express");
-const path = require('path')
+import express from "express";
+import bodyParser from "body-parser";
+
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname,'/public/')))
-
-app.set('view engine',"ejs")
-
- 
-//Step 4 - Add a dynamic year to the footer.
-
-//Hint: Google to find out how to get the current year using JS.
-
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  //Step 1 - Make the get route work and render the index.ejs file.
-  let theYear = new Date().getFullYear()
-   
-  res.render(path.join(__dirname,'views','/index.ejs'), 
-  {year: theYear})
-  
- 
+  res.render("solution.ejs");
 });
 
 app.post("/submit", (req, res) => {
-  let theYear = new Date().getFullYear()
-  const randomadj = adj[Math.floor(Math.random() * adj.length)];
-  const randomnoun = noun[Math.floor(Math.random() * noun.length)];
-  const nameGenerated  =  `${randomadj} ${randomnoun}`
-  
-  res.render(path.join(__dirname,'views','/index.ejs'), 
-    {
-      bandName: nameGenerated,
-      year: theYear
-    }
-    )
-   
-  //Step 2 - Make the generate name functionality work
-  //Hint: When the "Generate Name" button in index.ejs is clicked, it should hit up this route.
-  //Then:
-  //1. You should randomly pick an adjective from the const "adj" and a noun from const "noun",
-  //scroll down to see the two arrays.
-  //2. Send the index.ejs as a response and add the adjective and noun to the res.render
-  //3. Test to make sure that the random words display in the h1 element in index.ejs
+  const randomAdj = adj[Math.floor(Math.random() * adj.length)];
+  const randomNoun = noun[Math.floor(Math.random() * noun.length)];
+  res.render("solution.ejs", {
+    adjective: randomAdj,
+    noun: randomNoun,
+  });
 });
 
 app.listen(port, () => {

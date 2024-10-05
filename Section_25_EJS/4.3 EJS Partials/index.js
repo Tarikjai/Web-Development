@@ -1,24 +1,7 @@
-const express =require("express")
-const path = require('path')
+import express from "express";
+
 const app = express();
 const port = 3000;
-
-app.use(express.static(path.join(__dirname,'/public')))
-
-
-
-app.get('/', (req,res)=> {
-  res.render("index.ejs");
-})
-
-app.get('/contact', (req,res)=> {
-  res.render(path.join(__dirname,'views','contact.ejs'))
-  
-})
-
-app.get('/about', (req,res)=> {
-  res.render(path.join(__dirname,'views','about.ejs'))
-})
 
 /* Write your code here:
 Step 1: Render the home page "/" index.ejs
