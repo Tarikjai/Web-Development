@@ -16,33 +16,29 @@
   </form>
   <div id="recipeContainer" class="hidden">
 
-
-    <% if (locals.recipe) { %>
-    <h2> <%= recipe.name %> </h2>
-    <h3>Ingredients:</h3>
-   
-    <ul id="ingredientsList">
-      <li><%= recipe.ingredients.protein.name %>, <%= recipe.ingredients.protein.preparation %></li>
-      <li><%= recipe.ingredients.salsa.name %></li>
-      
-      <li>
-      <% recipe.ingredients.toppings.forEach(toppings => {%>  
-        <%= topping.quantity %> of <%= topping.name %>
-
-            <% }); %>  
-      </li>
-    </ul>
-    <% } else {%>
-    <h2>Pick your favourite taco ingredient 👆</h2>
-    <!-- Else, show the recipe name e.g. <h2>Recipe name</h2>-->
-
+    <!-- If no recipe yet, show: -->
+     <% if (!locals.data) { %>
+      <h2>Pick your favourite taco ingredient 👆</h2>
+    
     <h3>Ingredients:</h3>
     <ul id="ingredientsList">
       <li>Protein name, protein preparation</li>
       <li>Salsa name</li>
       <li>Every other topping</li>
     </ul>
-    <% }%>
+    <% } else { %>
+      <h2> <%=data.name%>  </h2>
+      <!-- Else, show the recipe name e.g. <h2>Recipe name</h2>-->
+      <h3>Ingredients:</h3>
+      <ul id="ingredientsList">
+        <li><%=data.ingredients.protein.name%>, <%=data.ingredients.protein.preparation%></li>
+        <li><%=data.ingredients.salsa.name%></li>
+         
+        <% for(let item of data.ingredients.toppings) { %>
+          <li><%= item.name %>: <%= item.quantity %></li>
+        <%} %>
+        
+      <% } %>
 
 
   </div>

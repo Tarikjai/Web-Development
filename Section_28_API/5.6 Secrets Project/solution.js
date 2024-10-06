@@ -14,7 +14,8 @@ app.get("/", async (req, res) => {
       user: result.data.username,
     });
   } catch (error) {
-
+    console.log(error.response.data);
+    res.status(500);
   }
 });
 

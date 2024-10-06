@@ -1,45 +1,13 @@
-const express = require('express')
-const axios = require('axios')
-const path = require('path')
-require('dotenv').config()
+// HINTS:
+// 1. Import express and axios
 
-app = express()
-app.use(express.static('public'))
+// 2. Create an express app and set the port number.
 
+// 3. Use the public folder for static files.
 
-const PORT = process.env.PORT
-const yourBearerToken = process.env.yourBearerToken
+// 4. When the user goes to the home page it should render the index.ejs file.
 
-const config = {
-    headers: { Authorization: `Bearer ${yourBearerToken}` },
-  };
+// 5. Use axios to get a random secret and pass it to index.ejs to display the
+// secret and the username of the secret.
 
-// render public file
-app.use('/', express.static(path.join(__dirname, 'public')))
-
-
-
-app.use('/', async(req,res)=>{
-try {
-    const result = await axios.get('https://secrets-api.appbrewery.com/random')
-    const secret =result.data.secret
-    const username =result.data.username
-  
-    res.render(path.join(__dirname,'views','index.ejs'), {
-    secret: secret,
-    user : username
-    })
-} catch (error) {
-    console.log(error.response.data);
-    res.status(500);
-}
-   
-})
-
-
-
-
- 
-app.listen(PORT, (req,res)=>{
-    console.log(`server running on ${PORT}`)
-})
+// 6. Listen on your predefined port and start the server.
